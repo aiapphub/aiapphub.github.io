@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive AI Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-1: #6a11cb;
+            --color-2: #2575fc;
+            --color-3: #ff6a00;
+            --color-4: #ee0979;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--color-1), var(--color-2), var(--color-3), var(--color-4));
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        h1 {
+            /* The updated font size */
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .project-card {
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+            transition: transform 0.5s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        .project-button {
+            width: 100%;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fff;
+            border: none;
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Animated border glow */
+        .project-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #ff00cc);
+            background-size: 400% 400%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: 1.5rem;
+            animation: borderGlow 1.5s linear infinite;
+        }
+
+        .project-card:hover .project-button::before {
+            opacity: 1;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Description Box Styling */
+        .description-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            width: 90%;
+            margin-top: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .project-card:hover .description-container {
+            max-height: 200px;
+            padding: 1rem;
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-description {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Main Title -->
+        <h1 class="text-white">Welcome to the AI Hub</h1>
+        <!-- Subtitle -->
+        <p class="subtitle text-gray-200">Explore these interactive projects built with AI.</p>
+        
+        <!-- Button Grid -->
+        <div class="button-grid">
+            <!-- Project Card 1 -->
+            <a href="https://omniquizai.github.io" class="project-card">
+                <div class="project-button">OmniQuiz AI</div>
+                <div class="description-container">
+                    <p class="project-description">A completely free fully customizable quiz generator without any limits. You can customize from 1-70 questions, 5 different question types, different correction modes, and a spaced repetition learning mode for optimal learning.</p>
+                </div>
+            </a>
+            
+            <!-- Project Card 2 -->
+            <a href="https://dreaminterpreterai.github.io" class="project-card">
+                <div class="project-button">Dream Interpreter AI</div>
+                <div class="description-container">
+                    <p class="project-description">An AI that helps you find the deeper meaning behind your dreams and offers you a report on how your current subconscious mind and inner emotions could be affecting your dreams.</p>
+                </div>
+            </a>
+
+            <!-- Project Card 3 -->
+            <a href="https://quickmealai.github.io" class="project-card">
+                <div class="project-button">QuickMeal AI</div>
+                <div class="description-container">
+                    <p class="project-description">QuickMeal uses AI to help you find recipes of any cuisine type you like, with the ingredients you currently have available in the kitchen.</p>
+                </div>
+            </a>
+            
+            <!-- Project Card 4 - New Button -->
+            <a href="https://carfinder-ai.github.io" class="project-card">
+                <div class="project-button">CarFinder AI</div>
+                <div class="description-container">
+                    <p class="project-description">An AI powered quiz that figures out exactly which type of car you would like, and suggests the best cars for you within your budget range.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
